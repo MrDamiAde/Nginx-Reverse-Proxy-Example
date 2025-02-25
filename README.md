@@ -68,9 +68,11 @@ docker run -it --rm -d -p 8080:80 --name web -v C:/Users/44749/site-content:/usr
 
 ![image](https://github.com/user-attachments/assets/0dc9cd32-fe39-4272-bbac-f7fb5ca7cb3b)
 
-3. To test this out, I searched  http://localhost:8080 on Microsoft Edge and the below HTML rendered successfully:
+3. To test out the mount, I searched  http://localhost:8080 on Microsoft Edge
 
 ![Screenshot 2025-02-24 115647](https://github.com/user-attachments/assets/482d03b3-f80f-411f-8fe0-b5aa961ebea5)
+
+✅ The ``` Hello, World! ``` HTML rendered successfully
 
 ---
 
@@ -90,7 +92,7 @@ The ``` COPY ``` command copies our index.html file into the ``` /usr/share/ngin
 
 3. I then ran ``` docker run -it --rm -d -p 8080:80 --name webserver ``` in a container without the need for a mount for the HTML file
 
-4. Here is confirmation that it successfully worked when i navigated to http://localhost:8080:
+4. Here is confirmation that it successfully worked when I navigated to http://localhost:8080:
 
 ![Screenshot 2025-02-24 135633](https://github.com/user-attachments/assets/af31f89a-b758-4730-9b34-45c55ff15f01)
 
@@ -100,7 +102,7 @@ The ``` COPY ``` command copies our index.html file into the ``` /usr/share/ngin
 
 This section demonstrates how to set up a reverse proxy server using Nginx and Docker Compose to route traffic to a Node.js application. 
 
-1. I first created a nginx.conf file and added the below commands which listen on port 80 and proxies any requests to node-app:3000 (Node.js application).
+1. I first created a nginx.conf file and added the below commands which listen on port 80 and proxies any requests to ``` node-app:3000 ``` (Node.js application):
 ```
 events {}
 http {
@@ -114,7 +116,7 @@ http {
     }
 }
 ```
-2. I then created a ``` docker-compsoe.yml ``` file with the below commands which allows me to run multiple containers automatically, instead of running them manually:
+2. Instead of having to manually create multiple containers, I made a ``` docker-compsoe.yml ``` file with the below commands which allows me to run multiple containers automatically:
 
 ```
 services:
