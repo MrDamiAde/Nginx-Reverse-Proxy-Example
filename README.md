@@ -1,11 +1,23 @@
-# Nginx Webserver/Reverse Proxy Deployment With Docker
+# 🚀 Nginx with Docker: Static Web server & Reverse Proxy  
 
-## 📌 Overview  
-This project uses   creates an **Nginx reverse proxy** inside a **Docker container** 
+This project explores **Nginx** and **Docker** by setting up a **basic web server**, then creating a **custom Nginx image**, and finally configuring it as a **reverse proxy** for a Node.js application.  
 
-## 1. Pulling Image
+## 📌 Features  
+✅ **Basic Nginx Server** - Serve static HTML files using Nginx  
+✅ **Custom Nginx Image** - Build a Docker image with a modified Nginx setup  
+✅ **Reverse Proxy** - Forward requests to a Node.js backend  
+✅ **Docker & Docker Compose** - Simplifies deployment  
 
-I started by running the below Docker command to pull the official Nginx image from DockerHub. This command runs the container as a daomon (-d) maps port 8080 on my local machine to port 80 inside the container.
+## 🛠 Tech Stack  
+- **Nginx** - Webserver & reverse proxy  
+- **Node.js** - Simple backend application  
+- **Docker** - Containerisation  
+- **Docker Compose** - Multi-container setup  
+
+
+## 1. Basic Nginx Server
+
+1. To run a basic Nginx server, I simply ran the below Docker command to pull the official Nginx image from DockerHub. This command runs the container as a daemon (-d) and maps port 8080 on my local machine to port 80 inside the container.
 
 `docker run -it --rm -d -p 8080:80 --name web nginx`
 
@@ -15,7 +27,7 @@ I started by running the below Docker command to pull the official Nginx image f
 
 
 
-I could then access the nginx web server via http://localhost:8080  
+2. I could then access the nginx web server via http://localhost:8080  
 
 
 
@@ -31,7 +43,7 @@ I could then access the nginx web server via http://localhost:8080
 
 ## 2. Adding Custom HTML file
 
-To put the web server to use, I created a directory called "site-content", created an index.html file and added the below HTML to it:
+1. To put the web server to use, I created a directory called "site-content", created an index.html file in that directory, and then added the below HTML to it:
 ```
 @"
 <!DOCTYPE html>
@@ -46,8 +58,7 @@ To put the web server to use, I created a directory called "site-content", creat
 "@ | Set-Content "index.html"
 
 ```
-
-I then ran the following command to create a bind mount volume:
+2. I then ran the following command to create a bind mount volume. This mounts our local directory ``` C:/Users/44749/site-content ```locally into the running container at: /usr/share/nginx/html
 
 ``` 
 docker run -it --rm -d -p 8080:80 --name web -v C:/Users/44749/site-content:/usr/share/nginx/html nginx
@@ -57,21 +68,29 @@ docker run -it --rm -d -p 8080:80 --name web -v C:/Users/44749/site-content:/usr
 
 ![image](https://github.com/user-attachments/assets/0dc9cd32-fe39-4272-bbac-f7fb5ca7cb3b)
 
+3. To test this out, I searched  http://localhost:8080 on Microsoft Edge and the below HTML rendered successfully:
+
+![Screenshot 2025-02-24 115647](https://github.com/user-attachments/assets/482d03b3-f80f-411f-8fe0-b5aa961ebea5)
 
 ---
 
 ## 3. Building custom Nginx Image
 
-To create a flexible custom Nginx Image, I created a Dockerfile in the same "site-content" directory and added the following command:
+1. To create a flexible custom Nginx Image, I created a Dockerfile in the same "site-content" directory and added the following command:
 ```
 FROM nginx:latest  
 COPY index.html /usr/share/nginx/html/index.html
 ```
-I then built a webserver using ``` docker build -t webserver . ``` which tells docker to execute the commands in the Dockerfile. Below is the output of this command:
+The ``` FROM ``` command pulls the ``` nginx:latest ``` image from Dockerhub into my local machine to build the custom image on.
+The ``` COPY ``` command copies our index.html file into the ``` /usr/share/nginx/html ```` directory which overwrites the default index.html file provided in the ``` nginx:latest ``` image.
+
+2. I then built a webserver using ``` docker build -t webserver . ``` which tells docker to execute the commands in the Dockerfile. Below is the output of this command:
 
 ![Screenshot 2025-02-24 135346](https://github.com/user-attachments/assets/0aea7f7d-8789-4eeb-af10-6f05d6f28faf)
 
-Here is confirmation that it successfully worked:
+3. I then ran ``` docker run -it --rm -d -p 8080:80 --name webserver ``` in a countainer without the need for a mount for the HTML file
+
+4. Here is confirmation that it successfully worked when i navigated to http://localhost:8080:
 
 ![Screenshot 2025-02-24 135633](https://github.com/user-attachments/assets/af31f89a-b758-4730-9b34-45c55ff15f01)
 
@@ -79,7 +98,7 @@ Here is confirmation that it successfully worked:
 
 ## 4. Setting up a reverse proxy server
 
-In this project, I set up a reverse proxy server using Nginx and Docker Compose to route traffic to a Node.js application.
+This section demonstrates how to set up a reverse proxy server using Nginx and Docker Compose to route traffic to a Node.js application. 
 
 1. I first created a nginx.conf file and added the below commands which listen on port 80 and proxies any requests to node-app:3000 (Node.js application).
 ```
