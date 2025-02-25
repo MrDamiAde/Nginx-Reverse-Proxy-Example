@@ -114,7 +114,7 @@ http {
     }
 }
 ```
-2. I then created a docker-compsoe.yml file with the below commands
+2. I then created a ``` docker-compsoe.yml ``` file with the below commands
 
 ```
 services:
@@ -139,6 +139,6 @@ services:
 FROM nginx:latest
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
-Then I ran ``` docker-compose up --build ``` to  run the project, and below is the successful output:
+Then I ran ``` docker-compose up --build ``` to automatically start the containers as defined in ``` doccker-compose.yml ``` , and below is the successful output:
 
 ![Screenshot 2025-02-24 185009](https://github.com/user-attachments/assets/5cb8cf0d-07bb-4e6c-ad96-0b01e2c67af6)
