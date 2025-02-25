@@ -58,7 +58,7 @@ This project explores **Nginx** and **Docker** by setting up a **basic web serve
 "@ | Set-Content "index.html"
 
 ```
-2. I then ran the following command to create a bind mount volume. This mounts our local directory ``` C:/Users/44749/site-content ```locally into the running container at: /usr/share/nginx/html
+2. I then ran the following command to create a bind mount volume. This mounts our local directory ``` C:/Users/44749/site-content ``` locally into the running container at: /usr/share/nginx/html
 
 ``` 
 docker run -it --rm -d -p 8080:80 --name web -v C:/Users/44749/site-content:/usr/share/nginx/html nginx
