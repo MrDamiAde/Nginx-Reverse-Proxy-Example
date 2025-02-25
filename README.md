@@ -88,7 +88,7 @@ The ``` COPY ``` command copies our index.html file into the ``` /usr/share/ngin
 
 ![Screenshot 2025-02-24 135346](https://github.com/user-attachments/assets/0aea7f7d-8789-4eeb-af10-6f05d6f28faf)
 
-3. I then ran ``` docker run -it --rm -d -p 8080:80 --name webserver ``` in a countainer without the need for a mount for the HTML file
+3. I then ran ``` docker run -it --rm -d -p 8080:80 --name webserver ``` in a container without the need for a mount for the HTML file
 
 4. Here is confirmation that it successfully worked when i navigated to http://localhost:8080:
 
@@ -114,7 +114,7 @@ http {
     }
 }
 ```
-2. I then created a ``` docker-compsoe.yml ``` file with the below commands
+2. I then created a ``` docker-compsoe.yml ``` file with the below commands which allows me to run multiple containers automatically, instead of running them manually:
 
 ```
 services:
@@ -132,6 +132,7 @@ services:
   ports:
    - "3000:3000"
 ```
+✅ This setup builds a custom Nginx server, runs a node.js backend on port 3000 and routes any traffic through Nginx. 
 
 3. I then wrote the below Dockerfile to copy my nginx.conf file into the container and replace the default Nginx configuration:
 
