@@ -1,6 +1,6 @@
 # 🚀 Nginx with Docker: Static Web server & Reverse Proxy  
 
-This project explores **Nginx** and **Docker** by setting up a **basic web server**, then creating a **custom Nginx image**, and finally configuring it as a **reverse proxy** for a Node.js application.  
+This project explores **Nginx** and **Docker** by setting up a **basic web server**, then creating a **custom Nginx image**, configuring it as a **reverse proxy** for a Node.js application, and finally securing the reverse proxy with **SSL encryption**.
 
 ## 📌 Features  
 ✅ **Basic Nginx Server** - Serve static HTML files using Nginx  
